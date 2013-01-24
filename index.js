@@ -74,7 +74,7 @@ Drag.prototype.unbind = function() {
  */
 
 Drag.prototype.ontouchstart = function( e ) {
-  e.stopPropargation();
+  e.stopPropagation();
   if ( e.touches ) e = e.touches[0];
   
   this.originX = this.el.offsetLeft;

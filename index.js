@@ -87,7 +87,7 @@ Drag.prototype.ontouchstart = function( e ) {
   this.docEvents.bind( 'touchend' );
   this.docEvents.bind( 'mouseup', 'ontouchend' );
 
-  this.emit( 'dragstart' , this.el );
+  this.emit( 'dragstart' , e );
 };
 
 /**
@@ -112,7 +112,7 @@ Drag.prototype.ontouchmove = function( e ) {
     this.el.style.left = x;
     this.el.style.top  = y;
   }
-  this.emit( 'drag', this.el );
+  this.emit( 'drag', e );
 };
 
 /**
@@ -125,5 +125,5 @@ Drag.prototype.ontouchmove = function( e ) {
 
 Drag.prototype.ontouchend = function( e ) {
   this.docEvents.unbind();
-  this.emit( 'dragend', this.el );
+  this.emit( 'dragend', e );
 };

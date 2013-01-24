@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Example</title>
+    <style type="text/css" media="all">
+      .drag{
+        position: absolute;
+        width: 100px; height: 100px; background: lightblue;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="drag">
+      
+    </div>
+    <script src="build/build.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      var Drag = require( 'drag' );
+
+      drag = new Drag( document.querySelector( '.drag' ) )
+    </script>
+  </body>
+</html>

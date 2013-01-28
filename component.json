@@ -6,7 +6,8 @@
   "keywords": ["ui", "drag"],
   "dependencies": {
     "component/events": "*",
-    "component/emitter": "*"
+    "component/emitter": "*",
+    "mnmly/CSSMatrix": "component-js"
   },
   "development": {},
   "license": "MIT",

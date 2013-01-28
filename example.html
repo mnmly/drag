@@ -7,18 +7,22 @@
         position: absolute;
         width: 100px; height: 100px; background: lightblue;
       }
+      .displaced{
+        top: 200px;
+        left: 200px;
+        background: lightpink;
+      }
     </style>
   </head>
   
   <body>
-    <div class="drag">
-      
-    </div>
+    <div class="drag normal"></div>
+    <div class="drag displaced"></div>
     <script src="build/build.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
       var Drag = require( 'drag' );
-
-      drag = new Drag( document.querySelector( '.drag' ) )
+      var dragA = new Drag( document.querySelector( '.normal' ) );
+      var dragB = new Drag( document.querySelector( '.displaced' ), true );
     </script>
   </body>
 </html>

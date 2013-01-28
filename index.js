@@ -27,17 +27,23 @@ var isFF = navigator.userAgent.search('Firefox') > -1;
  *   - `drag` when dragging
  *   - `dragend` when drag finishes
  *
+ * Options:
+ *   - `smooth` enables `translate3d` positioning
+ *   - `axis` constrains drag direction ['x'|'y']
+ *
  * @param {Element} el
- * @param {Boolean} smooth whether or not we use `transform3d`
+ * @param {Object} options optionally set `smooth` and `axis`
  * @api public
  */
 
-function Drag( el, smooth ){
-  if ( !( this instanceof Drag ) ) return new Drag( el, smooth );
+function Drag( el, options ){
+  if ( !( this instanceof Drag ) ) return new Drag( el, options );
   if ( !el ) throw new TypeError( 'Drag() requires an element' );
+  options = options || { };
   Emitter.call( this );
   this.el     = el;
-  this.smooth = smooth;
+  this.smooth = options.smooth || false;
+  this.axis   = options.axis || '';
   this.bind();
 }
 
@@ -114,11 +120,15 @@ Drag.prototype.ontouchmove = function( e ) {
   if( this.smooth ){
     this.x -= this.originX - this.translateX;
     this.y -= this.originY - this.translateY;
+    if( this.axis === 'x' ) this.y = 0;
+    if( this.axis === 'y' ) this.x = 0;
     this.el.style.webkitTransform = 
        this.el.style.mozTransform = 
         this.el.style.msTransform = 
           this.el.style.transform = 'translate3d( ' + this.x + 'px, ' + this.y + 'px , 0.0001px )'; // need to force `matrix3d`
   } else {
+    if( this.axis === 'x' ) this.y = 0;
+    if( this.axis === 'y' ) this.x = 0;
     this.el.style.left = this.x + 'px';
     this.el.style.top  = this.y + 'px';
   }

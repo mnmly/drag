@@ -3,9 +3,17 @@
   <head>
     <title>Example</title>
     <style type="text/css" media="all">
+      body{
+        padding: 40px;
+      }
       .drag{
         position: absolute;
         width: 100px; height: 100px; background: lightblue;
+      }
+      .y-axis{
+        position: absolute;
+        left: 200px;
+        width: 100px; height: 100px; background: lightgreen;
       }
       .displaced{
         top: 200px;
@@ -17,12 +25,14 @@
   
   <body>
     <div class="drag normal"></div>
+    <div class="drag y-axis"></div>
     <div class="drag displaced"></div>
     <script src="build/build.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
       var Drag = require( 'drag' );
       var dragA = new Drag( document.querySelector( '.normal' ) );
-      var dragB = new Drag( document.querySelector( '.displaced' ), true );
+      var dragB = new Drag( document.querySelector( '.displaced' ), { smooth: true } );
+      var dragC = new Drag( document.querySelector( '.y-axis' ), { smooth: true, axis: 'y' } );
     </script>
   </body>
 </html>

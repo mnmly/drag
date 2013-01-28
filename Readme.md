@@ -19,10 +19,14 @@
   - [Drag.bind()](#dragbind)
   - [Drag.unbind()](#dragunbind)
 
-## Drag()
+## Drag( el, options )
 
   Tuen `el` into draggable element.
   
+### Options
+
+ - `smooth` enables `translate3d` positioning
+ - `axis` constrains drag direction `x` or `y`
 
 ## Drag.bind()
 

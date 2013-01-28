@@ -2,7 +2,7 @@
   "name": "drag",
   "repo": "mnmly/drag",
   "description": "drag component",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "keywords": ["ui", "drag"],
   "dependencies": {
     "component/events": "*",

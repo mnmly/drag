@@ -3,7 +3,7 @@
  */
 
 var events    = require( 'events' ),
-    CSSMatrix = require( './css-matrix' ),
+    CSSMatrix = require( 'css-matrix' ),
     Emitter   = require( 'emitter' );
 
 /**

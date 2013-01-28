@@ -7,7 +7,7 @@
   "dependencies": {
     "component/events": "*",
     "component/emitter": "*",
-    "mnmly/CSSMatrix": "component-js"
+    "mnmly/css-matrix": "component-js"
   },
   "development": {},
   "license": "MIT",

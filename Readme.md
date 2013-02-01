@@ -21,7 +21,7 @@
 
 ## Drag( el, options )
 
-  Tuen `el` into draggable element.
+  Turn `el` into draggable element.
   
 ### Options
 

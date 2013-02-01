@@ -114,6 +114,7 @@ Drag.prototype.ontouchstart = function( e ) {
  */
 
 Drag.prototype.ontouchmove = function( e ) {
+  e.stopPropagation();
   e.preventDefault();
   this.x = this.originX + ( e.pageX - this.startX ),
   this.y = this.originY + ( e.pageY - this.startY );

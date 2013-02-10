@@ -2,12 +2,16 @@
   "name": "drag",
   "repo": "mnmly/drag",
   "description": "drag component",
-  "version": "0.0.3",
-  "keywords": ["ui", "drag"],
+  "version": "0.0.4",
+  "keywords": [
+    "ui",
+    "drag"
+  ],
   "dependencies": {
     "component/events": "*",
     "component/emitter": "*",
-    "mnmly/css-matrix": "component-js"
+    "mnmly/css-matrix": "component-js",
+    "mnmly/constrain": "*"
   },
   "development": {},
   "license": "MIT",

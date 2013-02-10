@@ -3,6 +3,7 @@
  */
 
 var events    = require( 'events' ),
+    constrain = require( 'constrain' ),
     CSSMatrix = require( 'css-matrix' ),
     Emitter   = require( 'emitter' );
 
@@ -19,7 +20,7 @@ module.exports = Drag;
 var isFF = navigator.userAgent.search('Firefox') > -1;
 
 /**
- * Tuen `el` into draggable element.
+ * Turn `el` into draggable element.
  *
  * Emits:
  *
@@ -30,6 +31,7 @@ var isFF = navigator.userAgent.search('Firefox') > -1;
  * Options:
  *   - `smooth` enables `translate3d` positioning
  *   - `axis` constrains drag direction ['x'|'y']
+ *   - `range` constrains range of movement
  *
  * @param {Element} el
  * @param {Object} options optionally set `smooth` and `axis`
@@ -44,6 +46,7 @@ function Drag( el, options ){
   this.el     = el;
   this.smooth = options.smooth || false;
   this.axis   = options.axis || '';
+  this.range  = options.range || { x: null, y: null };
   this.bind();
 }
 
@@ -104,7 +107,6 @@ Drag.prototype.ontouchstart = function( e ) {
   this.docEvents.bind( 'mouseup', 'ontouchend' );
   this.emit( 'dragstart' , e );
 };
-
 /**
  * Handle touchmove
  * 
@@ -121,15 +123,19 @@ Drag.prototype.ontouchmove = function( e ) {
   if( this.smooth ){
     this.x -= this.originX - this.translateX;
     this.y -= this.originY - this.translateY;
-    if( this.axis === 'x' ) this.y = 0;
-    if( this.axis === 'y' ) this.x = 0;
+    
+    var constrained = this.constrain( this.x, this.y );
+    this.x = constrained.x
+    this.y = constrained.y;
+
     this.el.style.webkitTransform = 
        this.el.style.mozTransform = 
         this.el.style.msTransform = 
           this.el.style.transform = 'translate3d( ' + this.x + 'px, ' + this.y + 'px , 0.0001px )'; // need to force `matrix3d`
   } else {
-    if( this.axis === 'x' ) this.y = 0;
-    if( this.axis === 'y' ) this.x = 0;
+    var constrained = this.constrain( this.x, this.y );
+    this.x = constrained.x
+    this.y = constrained.y;
     this.el.style.left = this.x + 'px';
     this.el.style.top  = this.y + 'px';
   }
@@ -174,3 +180,24 @@ Drag.prototype.getTranslate = function( ) {
   }
   return { x: x, y: y };
 };
+
+
+/**
+ * Constrains `x`, `y`
+ *
+ * @param {Number} x 
+ * @param {Number} y
+ *
+ * @api private
+ */
+
+Drag.prototype.constrain = function( x, y ) {
+  var x = this.range.x ? constrain( x, this.range.x[0], this.range.x[1] ) : x,
+      y = this.range.y ? constrain( y, this.range.y[0], this.range.y[1] ) : y;
+  
+  if( this.axis === 'x' ) y = 0;
+  if( this.axis === 'y' ) x = 0;
+
+  return { x: x, y: y };
+};
+

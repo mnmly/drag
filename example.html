@@ -20,6 +20,12 @@
         left: 200px;
         background: lightpink;
       }
+      .constrained{
+        top: 200px;
+        left: 50px;
+        background: lightyellow;
+      
+      }
     </style>
   </head>
   
@@ -27,12 +33,14 @@
     <div class="drag normal"></div>
     <div class="drag y-axis"></div>
     <div class="drag displaced"></div>
+    <div class="drag constrained"></div>
     <script src="build/build.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
       var Drag = require( 'drag' );
       var dragA = new Drag( document.querySelector( '.normal' ) );
       var dragB = new Drag( document.querySelector( '.displaced' ), { smooth: true } );
       var dragC = new Drag( document.querySelector( '.y-axis' ), { smooth: true, axis: 'y' } );
+      var dragD = new Drag( document.querySelector( '.constrained' ), { smooth: true, axis: 'y', range: { y: [0, 100 ]} } );
     </script>
   </body>
 </html>

@@ -27,6 +27,7 @@
 
  - `smooth` enables `translate3d` positioning
  - `axis` constrains drag direction `x` or `y`
+ - `range` constrains value to its range
 
 ## Drag.bind()
 

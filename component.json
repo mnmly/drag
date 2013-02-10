@@ -11,7 +11,8 @@
     "component/events": "*",
     "component/emitter": "*",
     "mnmly/css-matrix": "component-js",
-    "mnmly/constrain": "*"
+    "mnmly/constrain": "*",
+    "component/classes": "*"
   },
   "development": {},
   "license": "MIT",

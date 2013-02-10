@@ -3,6 +3,7 @@
  */
 
 var events    = require( 'events' ),
+    classes   = require( 'classes' ),
     constrain = require( 'constrain' ),
     CSSMatrix = require( 'css-matrix' ),
     Emitter   = require( 'emitter' );
@@ -91,7 +92,7 @@ Drag.prototype.unbind = function() {
 Drag.prototype.ontouchstart = function( e ) {
   e.stopPropagation();
   if ( e.touches ) e = e.touches[0];
-  
+  classes( this.el ).add( 'is-dragging' );
   this.originX = this.el.offsetLeft;
   this.originY = this.el.offsetTop;
   this.startX  = e.pageX;
@@ -149,6 +150,7 @@ Drag.prototype.ontouchmove = function( e ) {
  */
 
 Drag.prototype.ontouchend = function( e ) {
+  classes( this.el ).remove( 'is-dragging' );
   this.docEvents.unbind();
   this.emit( 'dragend', e );
 };

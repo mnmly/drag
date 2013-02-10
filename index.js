@@ -118,26 +118,24 @@ Drag.prototype.ontouchstart = function( e ) {
 Drag.prototype.ontouchmove = function( e ) {
   e.stopPropagation();
   e.preventDefault();
-  this.x = this.originX + ( e.pageX - this.startX ),
-  this.y = this.originY + ( e.pageY - this.startY );
+  var x = this.originX + ( e.pageX - this.startX ),
+      y = this.originY + ( e.pageY - this.startY );
   if( this.smooth ){
-    this.x -= this.originX - this.translateX;
-    this.y -= this.originY - this.translateY;
+
+    x -= this.originX - this.translateX;
+    y -= this.originY - this.translateY;
     
-    var constrained = this.constrain( this.x, this.y );
-    this.x = constrained.x
+    var constrained = this.constrain( x, y );
+    this.x = constrained.x;
     this.y = constrained.y;
 
-    this.el.style.webkitTransform = 
-       this.el.style.mozTransform = 
-        this.el.style.msTransform = 
-          this.el.style.transform = 'translate3d( ' + this.x + 'px, ' + this.y + 'px , 0.0001px )'; // need to force `matrix3d`
+    this.setPosition( this.x, this.y );
   } else {
-    var constrained = this.constrain( this.x, this.y );
+    var constrained = this.constrain( x, y );
     this.x = constrained.x
     this.y = constrained.y;
-    this.el.style.left = this.x + 'px';
-    this.el.style.top  = this.y + 'px';
+    this.setPosition( this.x, this.y );
+
   }
   this.emit( 'drag', e );
 };
@@ -200,4 +198,27 @@ Drag.prototype.constrain = function( x, y ) {
 
   return { x: x, y: y };
 };
+
+
+/**
+ * Explicitly sets position of the object
+ *
+ * @param {Number} x
+ * @param {Number} y
+ *
+ * @api public
+ */
+
+Drag.prototype.setPosition = function( x, y ) {
+  if ( this.smooth ) {
+    this.el.style.webkitTransform = 
+       this.el.style.mozTransform = 
+        this.el.style.msTransform = 
+          this.el.style.transform = 'translate3d( ' + x + 'px, ' + y + 'px , 0.0001px )'; // need to force `matrix3d`
+    
+  } else {
+    this.el.style.left = x + 'px';
+    this.el.style.top  = y + 'px';
+  }
+}
 

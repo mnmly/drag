@@ -82,7 +82,7 @@ Drag.prototype.unbind = function() {
 
 /**
  * Handle touchstart
- * 
+ *
  * We capture the location of the element and mouse,
  * also binds `touchmove`, `touchend` events to `document`.
  *
@@ -108,9 +108,10 @@ Drag.prototype.ontouchstart = function( e ) {
   this.docEvents.bind( 'mouseup', 'ontouchend' );
   this.emit( 'dragstart' , e );
 };
+
 /**
  * Handle touchmove
- * 
+ *
  * Move element.
  *
  * @api private
@@ -125,7 +126,7 @@ Drag.prototype.ontouchmove = function( e ) {
 
     x -= this.originX - this.translateX;
     y -= this.originY - this.translateY;
-    
+
     var constrained = this.constrain( x, y );
     this.x = constrained.x;
     this.y = constrained.y;
@@ -159,7 +160,7 @@ Drag.prototype.ontouchend = function( e ) {
  * Returns translate value
  *
  * @return {Object} x and y coordinate of `translate3d`
- * 
+ *
  * @api private
  */
 
@@ -169,7 +170,7 @@ Drag.prototype.getTranslate = function( ) {
       matrix, rawMatrix;
   if( transform != 'none' ){
     if( isFF ) {
-      rawMatrix = transform.replace(/[a-z\(\)(3d)]/g, '').split( ',' ).map( function(v){ return v * 1; } ); 
+      rawMatrix = transform.replace(/[a-z\(\)(3d)]/g, '').split( ',' ).map( function(v){ return v * 1; } );
       matrix = new CSSMatrix();
       CSSMatrix.apply( matrix, rawMatrix );
     } else {
@@ -185,7 +186,7 @@ Drag.prototype.getTranslate = function( ) {
 /**
  * Constrains `x`, `y`
  *
- * @param {Number} x 
+ * @param {Number} x
  * @param {Number} y
  *
  * @api private
@@ -194,7 +195,7 @@ Drag.prototype.getTranslate = function( ) {
 Drag.prototype.constrain = function( x, y ) {
   var x = this.range.x ? constrain( x, this.range.x[0], this.range.x[1] ) : x,
       y = this.range.y ? constrain( y, this.range.y[0], this.range.y[1] ) : y;
-  
+
   if( this.axis === 'x' ) y = 0;
   if( this.axis === 'y' ) x = 0;
 
@@ -213,11 +214,11 @@ Drag.prototype.constrain = function( x, y ) {
 
 Drag.prototype.setPosition = function( x, y ) {
   if ( this.smooth ) {
-    this.el.style.webkitTransform = 
-       this.el.style.mozTransform = 
-        this.el.style.msTransform = 
-          this.el.style.transform = 'translate3d( ' + x + 'px, ' + y + 'px , 0.0001px )'; // need to force `matrix3d`
-    
+    this.el.style.webkitTransform =
+       this.el.style.mozTransform =
+        this.el.style.msTransform =
+          this.el.style.transform = 'translate3d( ' + (x||0) + 'px, ' + (y||0) + 'px , 0.0001px )'; // need to force `matrix3d`
+
   } else {
     this.el.style.left = x + 'px';
     this.el.style.top  = y + 'px';
